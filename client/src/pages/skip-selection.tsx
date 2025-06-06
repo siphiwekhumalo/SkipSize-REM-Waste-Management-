@@ -276,51 +276,125 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
   images: string[];
 }) {
   return (
-    <div className={`bg-gray-800 rounded-lg overflow-hidden transition-all duration-300 ${
-      isSelected ? 'ring-2 ring-orange-500 bg-gray-750' : 'hover:bg-gray-750'
+    <div className={`relative group transition-all duration-500 transform ${
+      isSelected ? 'scale-105 rotate-1' : 'hover:scale-102 hover:-rotate-1'
     }`}>
-      {/* Skip 360-Degree Viewer */}
-      <div className="relative">
-        <Skip360Viewer
-          images={images}
-          alt={skip.name}
-          className="h-48"
-        />
-        {/* Size Badge */}
-        <div className="absolute top-3 right-3 z-10">
-          <SkipInfoBadge skip={skip} />
-        </div>
-      </div>
-
-      {/* Card Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-2">{skip.size} Yard Skip</h3>
-        <p className="text-gray-400 text-sm mb-4">
-          {skip.dimensions} • 14 day hire period
-        </p>
+      {/* Hexagonal/Angular Card Shape */}
+      <div className={`relative bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 overflow-hidden transition-all duration-300 ${
+        isSelected 
+          ? 'ring-4 ring-orange-500 shadow-2xl shadow-orange-500/30 rounded-3xl' 
+          : 'hover:shadow-xl hover:shadow-gray-900/50 rounded-2xl'
+      }`} style={{
+        clipPath: isSelected 
+          ? 'polygon(0% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%)' 
+          : 'polygon(0% 0%, 100% 0%, 100% 90%, 90% 100%, 0% 100%)'
+      }}>
         
-        {/* Price */}
-        <div className="mb-6">
-          <span className="text-3xl font-bold text-orange-400">£{skip.price}</span>
+        {/* Orange Accent Cuts */}
+        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-orange-500 via-orange-600 to-transparent opacity-80"></div>
+        <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-orange-500/30 to-transparent"></div>
+        
+        {/* Skip 360-Degree Viewer with Angular Mask */}
+        <div className="relative h-56 overflow-hidden" style={{
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%)'
+        }}>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 z-10"></div>
+          <Skip360Viewer
+            images={images}
+            alt={skip.name}
+            className="h-full"
+          />
+          
+          {/* Floating Elements */}
+          <div className="absolute top-4 right-4 z-20">
+            <SkipInfoBadge skip={skip} />
+          </div>
+          
+          {/* Popular Ribbon */}
+          {skip.isPopular && (
+            <div className="absolute top-0 left-0 z-20">
+              <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-black px-4 py-2 text-xs font-bold transform -rotate-45 -translate-x-4 translate-y-4 shadow-lg">
+                POPULAR
+              </div>
+            </div>
+          )}
+          
+          {/* Size Display Overlay */}
+          <div className="absolute bottom-4 left-4 z-20">
+            <div className="bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2 border border-orange-500/30">
+              <span className="text-orange-400 font-bold text-lg">{skip.size} YARD</span>
+            </div>
+          </div>
         </div>
 
-        {/* Select Button */}
-        {isSelected ? (
-          <Button 
-            onClick={onSelect}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50"
-          >
-            Selected ✓
-          </Button>
-        ) : (
-          <Button 
-            onClick={onSelect}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group"
-          >
-            <span className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
-            <span className="relative z-10">Select This Skip →</span>
-          </Button>
-        )}
+        {/* Content Area with Angular Design */}
+        <div className="relative p-6">
+          {/* Angular Dividers */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-orange-500 via-orange-400 to-transparent opacity-50"></div>
+          
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-white mb-1 leading-tight">{skip.size} Yard Skip</h3>
+              <p className="text-gray-400 text-sm">
+                {skip.dimensions}
+              </p>
+            </div>
+            
+            {/* Angular Price Badge */}
+            <div className="relative ml-4">
+              <div className="bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/40 rounded-xl px-4 py-3 transform rotate-2">
+                <div className="text-center">
+                  <span className="text-2xl font-bold text-orange-400">£{skip.price}</span>
+                  <div className="text-xs text-orange-300">14 days</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Feature Points */}
+          <div className="mb-6 space-y-2">
+            <div className="flex items-center text-xs text-gray-400">
+              <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full mr-3 animate-pulse"></div>
+              14 day hire period included
+            </div>
+            <div className="flex items-center text-xs text-gray-400">
+              <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full mr-3 animate-pulse"></div>
+              {skip.features?.[2] || 'Road placement available'}
+            </div>
+          </div>
+
+          {/* Angular Action Button */}
+          <div className="relative">
+            {isSelected ? (
+              <Button 
+                onClick={onSelect}
+                className="w-full bg-gradient-to-r from-orange-600 via-orange-700 to-orange-600 hover:from-orange-700 hover:to-orange-800 text-black font-bold py-4 transform transition-all duration-300 shadow-lg"
+                style={{
+                  clipPath: 'polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%)'
+                }}
+              >
+                <span className="flex items-center justify-center">
+                  <span className="w-2 h-2 bg-black rounded-full mr-3 animate-pulse"></span>
+                  SELECTED
+                </span>
+              </Button>
+            ) : (
+              <Button 
+                onClick={onSelect}
+                className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 hover:from-orange-600 hover:via-orange-700 hover:to-orange-600 text-black font-bold py-4 transform transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/40 relative overflow-hidden group"
+                style={{
+                  clipPath: 'polygon(8% 0%, 100% 0%, 92% 100%, 0% 100%)'
+                }}
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-400 ease-out origin-left"></span>
+                <span className="relative z-10 flex items-center justify-center">
+                  SELECT THIS SKIP
+                  <span className="ml-3 transform group-hover:translate-x-2 transition-transform duration-300">→</span>
+                </span>
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
 }
