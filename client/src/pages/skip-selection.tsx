@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchSkips } from "@/lib/api";
-import { MapPin, Calendar, CreditCard, FileCheck, Check } from "lucide-react";
+import { MapPin, Calendar, CreditCard, FileCheck, Check, Menu, X, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -22,6 +22,7 @@ export default function SkipSelection() {
 
   const [selectedSkipId, setSelectedSkipId] = useState<number | null>(null);
   const [selectedSizeFilter, setSelectedSizeFilter] = useState<string | null>(null);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [location, setLocation] = useLocation();
 
   const handleSelectSkip = (skipId: number) => {
@@ -104,11 +105,34 @@ export default function SkipSelection() {
       {/* Three.js Animated Background */}
       <ThreeBackground />
       
-      {/* Left Sidebar - Fixed to left edge */}
-      <div className="w-80 bg-gray-900/95 h-screen fixed top-0 left-0 backdrop-blur-sm border-r border-gray-700 hidden lg:block z-30">
+      {/* Mobile Sidebar Overlay */}
+      {isMobileSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
+
+      {/* Left Sidebar - Desktop fixed, Mobile slide-out */}
+      <div className={`w-80 bg-gray-900/95 h-screen fixed top-0 backdrop-blur-sm border-r border-gray-700 z-50 transition-transform duration-300 ${
+        isMobileSidebarOpen ? 'left-0' : '-left-80'
+      } lg:left-0 lg:block`}>
         <div className="p-6 space-y-6">
+          {/* Mobile Close Button */}
+          <div className="flex items-center justify-between lg:hidden mb-4">
+            <h2 className="text-xl font-bold text-white">Filters</h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsMobileSidebarOpen(false)}
+              className="text-white hover:bg-gray-700"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          </div>
+          
           <div className="bg-gray-800/60 rounded-lg p-6">
-            <h2 className="text-xl font-bold text-white mb-4">Filter by Size</h2>
+            <h2 className="text-xl font-bold text-white mb-4 hidden lg:block">Filter by Size</h2>
             <div className="space-y-3">
               {['Small (4-6 yards)', 'Medium (8-10 yards)', 'Large (12-16 yards)', 'Extra Large (20-40 yards)'].map((range, index) => (
                 <div 
@@ -166,11 +190,29 @@ export default function SkipSelection() {
       </div>
 
       {/* Main Content Area - Offset by sidebar width */}
-      <div className="flex-1 lg:ml-80">
+      <div className="flex-1 lg:ml-80 w-full">
         {/* Progress Steps */}
         <div className="bg-gray-900/90 border-b border-gray-700 relative z-10 backdrop-blur-sm">
-          <div className="container max-w-7xl mx-auto px-4 py-6">
-            <div className="flex items-center justify-center space-x-4 md:space-x-8 overflow-x-auto">
+          <div className="container max-w-7xl mx-auto px-4 py-4 lg:py-6">
+            {/* Mobile Filter Toggle */}
+            <div className="flex items-center justify-between mb-4 lg:hidden">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsMobileSidebarOpen(true)}
+                className="bg-gray-800 border-gray-600 text-white hover:bg-gray-700"
+              >
+                <Filter className="w-4 h-4 mr-2" />
+                Filters
+              </Button>
+              {selectedSizeFilter && (
+                <div className="text-orange-400 text-sm">
+                  {selectedSizeFilter} ({filteredSkips?.length || 0})
+                </div>
+              )}
+            </div>
+            
+            <div className="flex items-center justify-center space-x-2 md:space-x-8 overflow-x-auto">
               <StepIndicator icon={MapPin} label="Postcode" isCompleted={true} isActive={false} />
               <StepIndicator icon={FileCheck} label="Waste Type" isCompleted={true} isActive={false} />
               <StepIndicator icon={Check} label="Select Skip" isCompleted={false} isActive={true} />
@@ -202,8 +244,8 @@ export default function SkipSelection() {
             </div>
           )}
 
-          {/* Skip Cards in Masonry Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {/* Skip Cards - Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
             {filteredSkips?.map((skip) => (
               <SkipCard 
                 key={skip.id} 
@@ -345,17 +387,17 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
 }) {
   return (
     <div className={`relative group transition-all duration-500 transform ${
-      isSelected ? 'scale-105 rotate-1' : 'hover:scale-102 hover:-rotate-1'
+      isSelected ? 'scale-105 sm:rotate-1' : 'hover:scale-102 sm:hover:-rotate-1'
     }`}>
-      {/* Hexagonal/Angular Card Shape */}
+      {/* Hexagonal/Angular Card Shape - Simplified for mobile */}
       <div className={`relative bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 overflow-hidden transition-all duration-300 ${
         isSelected 
-          ? 'ring-4 ring-orange-500 shadow-2xl shadow-orange-500/30 rounded-3xl' 
-          : 'hover:shadow-xl hover:shadow-gray-900/50 rounded-2xl'
+          ? 'ring-4 ring-orange-500 shadow-2xl shadow-orange-500/30 rounded-2xl sm:rounded-3xl' 
+          : 'hover:shadow-xl hover:shadow-gray-900/50 rounded-xl sm:rounded-2xl'
       }`} style={{
-        clipPath: isSelected 
+        clipPath: window.innerWidth < 640 ? 'none' : (isSelected 
           ? 'polygon(0% 0%, 100% 0%, 100% 85%, 85% 100%, 0% 100%)' 
-          : 'polygon(0% 0%, 100% 0%, 100% 90%, 90% 100%, 0% 100%)'
+          : 'polygon(0% 0%, 100% 0%, 100% 90%, 90% 100%, 0% 100%)')
       }}>
         
         {/* Orange Accent Cuts */}
