@@ -8,6 +8,7 @@ import type { SkipApiResponse } from "@/lib/api";
 import skipImage1 from "@assets/IMG_5661.jpg";
 import skipImage2 from "@assets/IMG_5663.jpg";
 import skipImage3 from "@assets/IMG_5664.jpg";
+import skipImage4 from "@assets/IMG_5662.jpg";
 
 export default function SkipSelection() {
   const { data: skips, isLoading, error, refetch } = useQuery({
@@ -31,7 +32,8 @@ export default function SkipSelection() {
       8: skipImage3,
       10: skipImage1,
       12: skipImage2,
-      14: skipImage3
+      14: skipImage3,
+      20: skipImage4
     };
     return skipImages[size as keyof typeof skipImages] || skipImage1;
   };
