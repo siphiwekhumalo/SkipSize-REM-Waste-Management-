@@ -117,23 +117,20 @@ export default function SkipSelection() {
           ))}
         </div>
 
-        {/* Disclaimer - only show when skip is selected */}
-        {selectedSkipId && (
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg">
-            <p className="text-gray-400 text-sm text-center leading-relaxed">
-              Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
-            </p>
-          </div>
-        )}
-
         {/* Add bottom padding to prevent overlap with fixed bottom bar */}
-        {selectedSkipId && <div className="h-20 md:h-0"></div>}
+        {selectedSkipId && <div className="h-32 md:h-0"></div>}
       </div>
 
       {/* Bottom Navigation */}
       {selectedSkipId && (
         <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-4 z-50">
           <div className="container max-w-7xl mx-auto">
+            {/* Disclaimer */}
+            <div className="mb-3 px-2">
+              <p className="text-gray-400 text-xs text-center leading-relaxed">
+                Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
+              </p>
+            </div>
             {/* Mobile Layout */}
             <div className="flex flex-col sm:hidden space-y-3">
               <div className="flex items-center justify-between">
@@ -145,7 +142,7 @@ export default function SkipSelection() {
                     <span className="text-blue-400 font-bold text-lg">
                       £{skips?.find(s => s.id === selectedSkipId)?.price || 0}
                     </span>
-                    <span className="text-gray-400 text-xs">7 day hire</span>
+                    <span className="text-gray-400 text-xs">14 day hire</span>
                   </div>
                 </div>
               </div>
