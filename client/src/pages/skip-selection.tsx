@@ -159,10 +159,10 @@ export default function SkipSelection() {
                 <span className="text-blue-400 font-bold text-xl">
                   £{skips?.find(s => s.id === selectedSkipId)?.price || 0}
                 </span>
-                <span className="text-gray-400 text-sm">7 day hire</span>
+                <span className="text-gray-400 text-sm">14 day hire</span>
               </div>
               <div className="flex space-x-4">
-                <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
+                <Button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold">
                   Back
                 </Button>
                 <Button className="bg-blue-600 hover:bg-blue-700 px-8">
