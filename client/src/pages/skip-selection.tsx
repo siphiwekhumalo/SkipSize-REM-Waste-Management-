@@ -227,14 +227,14 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
       isSelected ? 'ring-2 ring-orange-500 bg-gray-750' : 'hover:bg-gray-750'
     }`}>
       {/* Skip 360-Degree Viewer */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative">
         <Skip360Viewer
           images={images}
           alt={skip.name}
-          className="h-full"
+          className="h-48"
         />
         {/* Size Badge */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-10">
           <Badge className="bg-orange-500 text-black border-0">
             {skip.size}
           </Badge>

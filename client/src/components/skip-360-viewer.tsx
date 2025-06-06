@@ -25,9 +25,9 @@ export default function Skip360Viewer({ images, alt, className = "" }: Skip360Vi
   }, [images.length]);
 
   return (
-    <div className={`relative group w-full h-full ${className}`}>
+    <div className={`relative group ${className}`}>
       <div 
-        className="relative w-full h-full overflow-hidden bg-gray-800 cursor-crosshair"
+        className="relative overflow-hidden rounded-lg bg-gray-800 cursor-crosshair"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsZoomed(true)}
         onMouseLeave={() => setIsZoomed(false)}
