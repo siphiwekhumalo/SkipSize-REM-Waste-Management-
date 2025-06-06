@@ -1,25 +1,53 @@
 import { z } from "zod";
 
-export const skipApiResponseSchema = z.object({
+// Raw API response schema
+const rawSkipSchema = z.object({
   id: z.number(),
-  name: z.string(),
-  size: z.string(),
-  dimensions: z.string().optional(),
-  capacity: z.string().optional(),
-  price: z.number(),
-  originalPrice: z.number().optional(),
-  imageUrl: z.string().optional(),
-  suitableFor: z.array(z.string()).optional(),
-  isPopular: z.boolean().optional(),
-  features: z.array(z.string()).optional(),
+  size: z.number(),
+  hire_period_days: z.number(),
+  transport_cost: z.number().nullable(),
+  per_tonne_cost: z.number().nullable(),
+  price_before_vat: z.number(),
+  vat: z.number(),
+  postcode: z.string(),
+  area: z.string(),
+  forbidden: z.boolean(),
+  created_at: z.string(),
+  updated_at: z.string(),
+  allowed_on_road: z.boolean(),
+  allows_heavy_waste: z.boolean(),
 });
+
+// Transformed schema for frontend use
+export const skipApiResponseSchema = rawSkipSchema.transform((data) => ({
+  id: data.id,
+  name: `${data.size} Yard Skip`,
+  size: `${data.size} Yard`,
+  dimensions: `Suitable for ${data.size} cubic yards of waste`,
+  capacity: `${data.size} cubic yards`,
+  price: Math.round(data.price_before_vat * (1 + data.vat / 100)),
+  originalPrice: undefined,
+  imageUrl: undefined,
+  suitableFor: data.size <= 4 
+    ? ['Garden clearance', 'Small renovations', 'House clearouts']
+    : data.size <= 8
+    ? ['Home renovations', 'Garden projects', 'Construction waste']
+    : ['Large construction', 'Commercial projects', 'Major clearouts'],
+  isPopular: data.size === 6,
+  features: [
+    `${data.hire_period_days}-day hire period`,
+    'Free delivery & collection',
+    data.allowed_on_road ? 'Road placement allowed' : 'Private land only',
+    data.allows_heavy_waste ? 'Heavy waste accepted' : 'Standard waste only'
+  ],
+}));
 
 export const skipsApiResponseSchema = z.array(skipApiResponseSchema);
 
 export type SkipApiResponse = z.infer<typeof skipApiResponseSchema>;
 
 export async function fetchSkips(): Promise<SkipApiResponse[]> {
-  const response = await fetch('https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft');
+  const response = await fetch('/api/skips');
   
   if (!response.ok) {
     throw new Error(`Failed to fetch skips: ${response.status} ${response.statusText}`);
@@ -27,17 +55,6 @@ export async function fetchSkips(): Promise<SkipApiResponse[]> {
   
   const data = await response.json();
   
-  // Handle different possible response structures
-  let skipsData;
-  if (Array.isArray(data)) {
-    skipsData = data;
-  } else if (data.skips && Array.isArray(data.skips)) {
-    skipsData = data.skips;
-  } else if (data.data && Array.isArray(data.data)) {
-    skipsData = data.data;
-  } else {
-    throw new Error('Invalid API response structure');
-  }
-  
-  return skipsApiResponseSchema.parse(skipsData);
+  // Validate and return the data
+  return skipsApiResponseSchema.parse(data);
 }
