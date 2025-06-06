@@ -9,6 +9,7 @@ import skipImage1 from "@assets/IMG_5661.jpg";
 import skipImage2 from "@assets/IMG_5663.jpg";
 import skipImage3 from "@assets/IMG_5664.jpg";
 import skipImage4 from "@assets/IMG_5662.jpg";
+import Skip360Viewer from "@/components/skip-360-viewer";
 
 export default function SkipSelection() {
   const { data: skips, isLoading, error, refetch } = useQuery({
@@ -24,19 +25,19 @@ export default function SkipSelection() {
     console.log('Selected skip:', selectedSkip);
   };
 
-  const getSkipImage = (size: number) => {
-    // Use the exact WeWantWaste skip images provided
-    const skipImages = {
-      4: skipImage1,
-      6: skipImage2,
-      8: skipImage3,
-      10: skipImage1,
-      12: skipImage2,
-      14: skipImage3,
-      20: skipImage4,
-      40: skipImage4
+  const getSkipImages = (size: number) => {
+    // Multiple angles for 360-degree viewing
+    const skipImageSets = {
+      4: [skipImage1, skipImage3, skipImage2],
+      6: [skipImage2, skipImage1, skipImage3], 
+      8: [skipImage3, skipImage2, skipImage1],
+      10: [skipImage1, skipImage3, skipImage2],
+      12: [skipImage2, skipImage1, skipImage3],
+      14: [skipImage3, skipImage2, skipImage1],
+      20: [skipImage4, skipImage2, skipImage3],
+      40: [skipImage4, skipImage2, skipImage3]
     };
-    return skipImages[size as keyof typeof skipImages] || skipImage1;
+    return skipImageSets[size as keyof typeof skipImageSets] || [skipImage1, skipImage2, skipImage3];
   };
 
   if (isLoading) {
@@ -104,7 +105,7 @@ export default function SkipSelection() {
               skip={skip} 
               isSelected={selectedSkipId === skip.id}
               onSelect={() => handleSelectSkip(skip.id)}
-              image={getSkipImage(parseInt(skip.size))}
+              images={getSkipImages(parseInt(skip.size))}
             />
           ))}
         </div>
@@ -191,25 +192,25 @@ function StepIndicator({ icon: Icon, label, isCompleted, isActive }: {
   );
 }
 
-function SkipCard({ skip, isSelected, onSelect, image }: {
+function SkipCard({ skip, isSelected, onSelect, images }: {
   skip: SkipApiResponse;
   isSelected: boolean;
   onSelect: () => void;
-  image: string;
+  images: string[];
 }) {
   return (
     <div className={`bg-gray-800 rounded-lg overflow-hidden transition-all duration-300 ${
       isSelected ? 'ring-2 ring-blue-500 bg-gray-750' : 'hover:bg-gray-750'
     }`}>
-      {/* Skip Image */}
+      {/* Skip 360-Degree Viewer */}
       <div className="relative">
-        <img 
-          src={image}
+        <Skip360Viewer
+          images={images}
           alt={skip.name}
-          className="w-full h-48 object-cover"
+          className="h-48"
         />
         {/* Size Badge */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-10">
           <Badge className="bg-blue-600 text-white border-0">
             {skip.size}
           </Badge>
