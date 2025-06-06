@@ -35,7 +35,7 @@ export default function Skip360Viewer({ images, alt, className = "" }: Skip360Vi
         <img
           src={images[currentImageIndex]}
           alt={alt}
-          className="w-full h-full object-contain transition-all duration-300"
+          className="w-full h-full object-cover transition-all duration-300"
           style={{
             transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
             transform: `scale(${isZoomed ? 1.5 : 1})`,
