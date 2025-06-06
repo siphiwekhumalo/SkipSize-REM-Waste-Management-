@@ -21,16 +21,60 @@ export default function SkipSelection() {
   };
 
   const getSkipImage = (size: number) => {
-    // Use the exact WeWantWaste branded skip images from the ChatGPT conversation
-    const skipImages = {
-      4: "https://files.oaiusercontent.com/file-k1YHWUeDmDfB2GaECNrDwSfB?se=2025-06-06T17%3A33%3A07Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D%22ChatGPT%2520Image%2520Jun%25206%252C%25202025%252C%252011_33_05%2520AM.png%22&sig=fNBfcBrlP9fW1yBa9lN8gJ8f5mFPdV4Qf8c/AFkH8vc%3D",
-      6: "https://files.oaiusercontent.com/file-k1YHWUeDmDfB2GaECNrDwSfB?se=2025-06-06T17%3A33%3A07Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D%22ChatGPT%2520Image%2520Jun%25206%252C%25202025%252C%252011_33_05%2520AM.png%22&sig=fNBfcBrlP9fW1yBa9lN8gJ8f5mFPdV4Qf8c/AFkH8vc%3D",
-      8: "https://files.oaiusercontent.com/file-k1YHWUeDmDfB2GaECNrDwSfB?se=2025-06-06T17%3A33%3A07Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D%22ChatGPT%2520Image%2520Jun%25206%252C%25202025%252C%252011_33_05%2520AM.png%22&sig=fNBfcBrlP9fW1yBa9lN8gJ8f5mFPdV4Qf8c/AFkH8vc%3D",
-      10: "https://files.oaiusercontent.com/file-k1YHWUeDmDfB2GaECNrDwSfB?se=2025-06-06T17%3A33%3A07Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D%22ChatGPT%2520Image%2520Jun%25206%252C%25202025%252C%252011_33_05%2520AM.png%22&sig=fNBfcBrlP9fW1yBa9lN8gJ8f5mFPdV4Qf8c/AFkH8vc%3D",
-      12: "https://files.oaiusercontent.com/file-k1YHWUeDmDfB2GaECNrDwSfB?se=2025-06-06T17%3A33%3A07Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D%22ChatGPT%2520Image%2520Jun%25206%252C%25202025%252C%252011_33_05%2520AM.png%22&sig=fNBfcBrlP9fW1yBa9lN8gJ8f5mFPdV4Qf8c/AFkH8vc%3D",
-      14: "https://files.oaiusercontent.com/file-k1YHWUeDmDfB2GaECNrDwSfB?se=2025-06-06T17%3A33%3A07Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D%22ChatGPT%2520Image%2520Jun%25206%252C%25202025%252C%252011_33_05%2520AM.png%22&sig=fNBfcBrlP9fW1yBa9lN8gJ8f5mFPdV4Qf8c/AFkH8vc%3D"
-    };
-    return skipImages[size as keyof typeof skipImages] || skipImages[4];
+    // Use the WeWantWaste branded skip container from attached assets
+    return `data:image/svg+xml,${encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FFC300;stop-opacity:1" />
+          </linearGradient>
+          <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.3)"/>
+          </filter>
+        </defs>
+        <rect width="400" height="300" fill="#f5f5f5"/>
+        
+        <!-- Skip Container Body -->
+        <g transform="translate(50,60)">
+          <!-- Main container shape -->
+          <path d="M40 160 L40 70 L60 50 L240 50 L260 70 L260 160 L240 180 L60 180 Z" 
+                fill="url(#yellowGrad)" 
+                stroke="#E6B800" 
+                stroke-width="2"
+                filter="url(#shadow)"/>
+          
+          <!-- Top rim -->
+          <rect x="45" y="50" width="210" height="25" fill="#FFD700" stroke="#E6B800" stroke-width="1"/>
+          
+          <!-- Side panels -->
+          <rect x="20" y="80" width="15" height="80" fill="#FF6B6B" stroke="#E6B800"/>
+          <rect x="265" y="80" width="15" height="80" fill="#FF6B6B" stroke="#E6B800"/>
+          
+          <!-- WeWantWaste Logo -->
+          <g transform="translate(150,110)">
+            <!-- Logo circle background -->
+            <circle cx="-50" cy="0" r="25" fill="none" stroke="#2563EB" stroke-width="3"/>
+            <circle cx="-50" cy="0" r="15" fill="none" stroke="#2563EB" stroke-width="2"/>
+            
+            <!-- Company text -->
+            <text x="0" y="-10" text-anchor="middle" font-family="Arial Black,sans-serif" 
+                  font-size="16" font-weight="900" fill="#2563EB">WE</text>
+            <text x="0" y="8" text-anchor="middle" font-family="Arial Black,sans-serif" 
+                  font-size="16" font-weight="900" fill="#2563EB">WANT</text>
+            <text x="0" y="26" text-anchor="middle" font-family="Arial Black,sans-serif" 
+                  font-size="16" font-weight="900" fill="#2563EB">WASTE</text>
+          </g>
+          
+          <!-- Bottom base -->
+          <rect x="45" y="170" width="210" height="8" fill="#DAA520"/>
+          
+          <!-- Lifting points -->
+          <rect x="55" y="175" width="12" height="6" rx="2" fill="#B8860B"/>
+          <rect x="233" y="175" width="12" height="6" rx="2" fill="#B8860B"/>
+        </g>
+      </svg>
+    `)}`;
   };
 
   if (isLoading) {
