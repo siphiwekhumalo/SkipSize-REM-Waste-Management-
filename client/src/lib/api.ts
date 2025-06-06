@@ -22,7 +22,7 @@ const rawSkipSchema = z.object({
 export const skipApiResponseSchema = rawSkipSchema.transform((data) => ({
   id: data.id,
   name: `${data.size} Yard Skip`,
-  size: `${data.size} Yard`,
+  size: data.size.toString(),
   dimensions: `Suitable for ${data.size} cubic yards of waste`,
   capacity: `${data.size} cubic yards`,
   price: Math.round(data.price_before_vat * (1 + data.vat / 100)),
