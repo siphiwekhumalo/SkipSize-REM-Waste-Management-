@@ -19,7 +19,6 @@ export default async () => {
     plugins.push(cartographer());
   }
   
-
   return defineConfig({
     plugins,
     resolve: {
