@@ -21,8 +21,15 @@ export default function SkipSelection() {
 
   const handleSelectSkip = (skipId: number) => {
     const selectedSkip = skips?.find(skip => skip.id === skipId);
-    setSelectedSkipId(skipId);
-    console.log('Selected skip:', selectedSkip);
+    
+    // If the same skip is clicked again, unselect it
+    if (selectedSkipId === skipId) {
+      setSelectedSkipId(null);
+      console.log('Unselected skip');
+    } else {
+      setSelectedSkipId(skipId);
+      console.log('Selected skip:', selectedSkip);
+    }
   };
 
   const getSkipImages = (size: number) => {
