@@ -1,6 +1,6 @@
  Built with React, TypeScript, and featuring an engaging 3D animated interface with real-time filtering and interactive 360-degree product visualization.
 ## 🎨 Design Approach & Redesign Philosophy
-### Our Redesign Strategy
+### Redesign Strategy
 This project represents a complete reimagining of the traditional skip selection experience, moving away from conventional layouts to create a modern, engaging interface that reflects WeWantWaste's commitment to innovation.
 #### Key Design Principles
 1. **Angular Modernism**: Implemented hexagonal and angular card shapes to break away from standard rectangular layouts
