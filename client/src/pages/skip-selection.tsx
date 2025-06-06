@@ -4,6 +4,7 @@ import { MapPin, Calendar, CreditCard, FileCheck, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { useLocation } from "wouter";
 import type { SkipApiResponse } from "@/lib/api";
 import skipImage1 from "@assets/IMG_5661.jpg";
 import skipImage2 from "@assets/IMG_5662.jpg";
@@ -19,6 +20,7 @@ export default function SkipSelection() {
   });
 
   const [selectedSkipId, setSelectedSkipId] = useState<number | null>(null);
+  const [location, setLocation] = useLocation();
 
   const handleSelectSkip = (skipId: number) => {
     const selectedSkip = skips?.find(skip => skip.id === skipId);
@@ -164,7 +166,10 @@ export default function SkipSelection() {
                 <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50">
                   Back
                 </Button>
-                <Button className="flex-1 bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group">
+                <Button 
+                  onClick={() => setLocation(`/permit-check?skipId=${selectedSkipId}`)}
+                  className="flex-1 bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group"
+                >
                   <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
                   <span className="relative z-10">Continue →</span>
                 </Button>
@@ -186,7 +191,10 @@ export default function SkipSelection() {
                 <Button className="bg-orange-500 hover:bg-orange-600 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50">
                   Back
                 </Button>
-                <Button className="bg-orange-600 hover:bg-orange-700 text-black font-semibold px-8 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group">
+                <Button 
+                  onClick={() => setLocation(`/permit-check?skipId=${selectedSkipId}`)}
+                  className="bg-orange-600 hover:bg-orange-700 text-black font-semibold px-8 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group"
+                >
                   <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
                   <span className="relative z-10">Continue →</span>
                 </Button>

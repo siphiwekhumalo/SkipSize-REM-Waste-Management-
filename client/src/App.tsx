@@ -4,12 +4,14 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import SkipSelection from "@/pages/skip-selection";
+import PermitCheck from "@/pages/permit-check";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={SkipSelection} />
+      <Route path="/permit-check" component={PermitCheck} />
       <Route component={NotFound} />
     </Switch>
   );
