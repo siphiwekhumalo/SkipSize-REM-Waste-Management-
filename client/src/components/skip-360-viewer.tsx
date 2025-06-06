@@ -161,26 +161,6 @@ export default function Skip360Viewer({ images, alt, className = "" }: Skip360Vi
           </div>
         </div>
       </div>
-      
-      {/* External navigation */}
-      <div className="flex justify-center mt-2 gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={prevImage}
-          className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
-        >
-          ← Prev
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={nextImage}
-          className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700"
-        >
-          Next →
-        </Button>
-      </div>
     </div>
   );
 }
