@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import type { SkipApiResponse } from "@/lib/api";
-import skipImage1 from "@assets/IMG_5661.jpg";
-import skipImage2 from "@assets/IMG_5663.jpg";
-import skipImage3 from "@assets/IMG_5664.jpg";
-import skipImage4 from "@assets/IMG_5662.jpg";
+import skipImage1 from "@assets/ChatGPT Image Jun 6, 2025, 11_41_03 AM.png";
+import skipImage2 from "@assets/image_1749203002605.png";
+import skipImage3 from "@assets/ChatGPT Image Jun 6, 2025, 11_33_05 AM.png";
+import skipImage4 from "@assets/image_1749201568179.png";
 import Skip360Viewer from "@/components/skip-360-viewer";
 
 export default function SkipSelection() {
@@ -22,7 +22,6 @@ export default function SkipSelection() {
   const handleSelectSkip = (skipId: number) => {
     const selectedSkip = skips?.find(skip => skip.id === skipId);
     
-    // If the same skip is clicked again, unselect it
     if (selectedSkipId === skipId) {
       setSelectedSkipId(null);
       console.log('Unselected skip');
@@ -33,7 +32,6 @@ export default function SkipSelection() {
   };
 
   const getSkipImages = (size: number) => {
-    // Multiple angles for 360-degree viewing
     const skipImageSets = {
       4: [skipImage1, skipImage3, skipImage2],
       6: [skipImage2, skipImage1, skipImage3], 
@@ -54,10 +52,9 @@ export default function SkipSelection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="bg-gray-800 rounded-lg p-4 animate-pulse">
-                <div className="h-48 bg-gray-700 rounded mb-4"></div>
-                <div className="h-6 bg-gray-700 rounded mb-2"></div>
-                <div className="h-4 bg-gray-700 rounded mb-4"></div>
-                <div className="h-10 bg-gray-700 rounded"></div>
+                <div className="bg-gray-700 h-48 rounded mb-4"></div>
+                <div className="bg-gray-700 h-4 rounded mb-2"></div>
+                <div className="bg-gray-700 h-8 rounded"></div>
               </div>
             ))}
           </div>
@@ -68,12 +65,12 @@ export default function SkipSelection() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="bg-gray-800 rounded-lg p-8 max-w-md mx-auto text-center">
-          <h3 className="text-xl font-semibold text-white mb-4">Unable to Load Skip Options</h3>
-          <p className="text-gray-300 mb-6">{error.message}</p>
-          <Button onClick={() => refetch()} className="bg-blue-600 hover:bg-blue-700">
-            Try Again
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Unable to load skips</h2>
+          <p className="text-gray-400 mb-6">Please try again</p>
+          <Button onClick={() => refetch()} className="bg-orange-500 hover:bg-orange-600 text-black">
+            Retry
           </Button>
         </div>
       </div>
@@ -81,9 +78,9 @@ export default function SkipSelection() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-black">
       {/* Progress Steps */}
-      <div className="bg-gray-800 border-b border-gray-700">
+      <div className="bg-gray-900 border-b border-gray-700">
         <div className="container max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-center space-x-4 md:space-x-8 overflow-x-auto">
             <StepIndicator icon={MapPin} label="Postcode" isCompleted={true} isActive={false} />
@@ -98,10 +95,14 @@ export default function SkipSelection() {
 
       {/* Main Content */}
       <div className="container max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Page Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Skip Size</h1>
-          <p className="text-gray-300 text-lg">Select the skip size that best suits your needs</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Choose Your Skip Size
+          </h1>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Select the skip size that best suits your needs
+          </p>
         </div>
 
         {/* Skip Grid */}
@@ -116,6 +117,15 @@ export default function SkipSelection() {
             />
           ))}
         </div>
+
+        {/* Disclaimer - only show when skip is selected */}
+        {selectedSkipId && (
+          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg">
+            <p className="text-gray-400 text-sm text-center leading-relaxed">
+              Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
+            </p>
+          </div>
+        )}
 
         {/* Add bottom padding to prevent overlap with fixed bottom bar */}
         {selectedSkipId && <div className="h-32 md:h-0"></div>}
@@ -139,7 +149,7 @@ export default function SkipSelection() {
                     {skips?.find(s => s.id === selectedSkipId)?.name}
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-blue-400 font-bold text-lg">
+                    <span className="text-orange-400 font-bold text-lg">
                       £{skips?.find(s => s.id === selectedSkipId)?.price || 0}
                     </span>
                     <span className="text-gray-400 text-xs">14 day hire</span>
@@ -192,11 +202,12 @@ function StepIndicator({ icon: Icon, label, isCompleted, isActive }: {
   return (
     <div className="flex items-center space-x-2">
       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-        isCompleted ? 'bg-blue-600' : isActive ? 'bg-blue-600' : 'bg-gray-600'
+        isCompleted ? 'bg-orange-600 text-black' : 
+        isActive ? 'bg-orange-500 text-black' : 'bg-gray-600 text-gray-300'
       }`}>
-        <Icon className="w-4 h-4 text-white" />
+        <Icon className="w-4 h-4" />
       </div>
-      <span className={`text-sm font-medium hidden sm:block ${
+      <span className={`text-sm font-medium ${
         isActive ? 'text-white' : 'text-gray-400'
       }`}>
         {label}
@@ -244,7 +255,10 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
 
         {/* Select Button */}
         {isSelected ? (
-          <Button className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold">
+          <Button 
+            onClick={onSelect}
+            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold"
+          >
             Selected ✓
           </Button>
         ) : (
