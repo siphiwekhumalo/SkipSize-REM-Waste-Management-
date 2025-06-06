@@ -49,7 +49,7 @@ export default function SkipSelection() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-black">
         <div className="container max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -213,7 +213,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
 }) {
   return (
     <div className={`bg-gray-800 rounded-lg overflow-hidden transition-all duration-300 ${
-      isSelected ? 'ring-2 ring-blue-500 bg-gray-750' : 'hover:bg-gray-750'
+      isSelected ? 'ring-2 ring-orange-500 bg-gray-750' : 'hover:bg-gray-750'
     }`}>
       {/* Skip 360-Degree Viewer */}
       <div className="relative">
@@ -223,8 +223,8 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
           className="h-48"
         />
         {/* Size Badge */}
-        <div className="absolute top-3 right-3 z-10">
-          <Badge className="bg-blue-600 text-white border-0">
+        <div className="absolute top-3 right-3">
+          <Badge className="bg-orange-500 text-black border-0">
             {skip.size}
           </Badge>
         </div>
@@ -239,26 +239,19 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
         
         {/* Price */}
         <div className="mb-6">
-          <span className="text-3xl font-bold text-blue-400">£{skip.price}</span>
+          <span className="text-3xl font-bold text-orange-400">£{skip.price}</span>
         </div>
 
         {/* Select Button */}
         {isSelected ? (
-          <Button 
-            onClick={onSelect}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-          >
+          <Button className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold">
             Selected ✓
           </Button>
         ) : (
           <Button 
             onClick={onSelect}
-            className="w-full bg-blue-400 hover:bg-blue-500 text-white font-semibold"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-black font-semibold"
           >
             Select This Skip →
-          </Button>
-        )}
-      </div>
     </div>
-  );
 }
