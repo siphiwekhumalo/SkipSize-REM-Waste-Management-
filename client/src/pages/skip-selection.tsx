@@ -250,25 +250,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
         />
         {/* Size Badge */}
         <div className="absolute top-3 right-3 z-10">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Badge className="bg-orange-500 text-black border-0 cursor-pointer hover:bg-orange-600 transition-colors">
-                {skip.size} Yard
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent side="left" className="bg-gray-900 border-gray-700 text-white">
-              <div className="p-2">
-                <h4 className="font-semibold mb-1">{skip.name}</h4>
-                <p className="text-sm text-gray-300 mb-2">{skip.dimensions}</p>
-                <div className="text-xs text-gray-400 space-y-1">
-                  <div>• Capacity: {skip.capacity}</div>
-                  <div>• {skip.hire_period_days || 14} day hire period</div>
-                  <div>• {skip.allows_heavy_waste ? 'Heavy waste accepted' : 'Standard waste only'}</div>
-                  <div>• {skip.allowed_on_road ? 'Road placement allowed' : 'Private land only'}</div>
-                </div>
-              </div>
-            </TooltipContent>
-          </Tooltip>
+          <SkipInfoBadge skip={skip} />
         </div>
       </div>
 
