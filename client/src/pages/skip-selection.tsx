@@ -10,6 +10,7 @@ import skipImage2 from "@assets/IMG_5662.jpg";
 import skipImage3 from "@assets/IMG_5663.jpg";
 import skipImage4 from "@assets/IMG_5664.jpg";
 import Skip360Viewer from "@/components/skip-360-viewer";
+import ThreeBackground from "@/components/three-background";
 
 export default function SkipSelection() {
   const { data: skips, isLoading, error, refetch } = useQuery({
@@ -78,9 +79,12 @@ export default function SkipSelection() {
   }
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black relative">
+      {/* Three.js Animated Background */}
+      <ThreeBackground />
+      
       {/* Progress Steps */}
-      <div className="bg-gray-900 border-b border-gray-700">
+      <div className="bg-gray-900/90 border-b border-gray-700 relative z-10 backdrop-blur-sm">
         <div className="container max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-center space-x-4 md:space-x-8 overflow-x-auto">
             <StepIndicator icon={MapPin} label="Postcode" isCompleted={true} isActive={false} />
@@ -94,7 +98,7 @@ export default function SkipSelection() {
       </div>
 
       {/* Main Content */}
-      <div className="container max-w-7xl mx-auto px-4 py-8">
+      <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
         {/* Page Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -120,7 +124,7 @@ export default function SkipSelection() {
 
         {/* Disclaimer - only show when skip is selected */}
         {selectedSkipId && (
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg">
+          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg relative z-10 backdrop-blur-sm">
             <p className="text-gray-400 text-sm text-center leading-relaxed">
               Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
             </p>
@@ -133,7 +137,7 @@ export default function SkipSelection() {
 
       {/* Bottom Navigation */}
       {selectedSkipId && (
-        <div className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-4 z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-gray-800/90 border-t border-gray-700 p-4 z-50 backdrop-blur-md">
           <div className="container max-w-7xl mx-auto">
             {/* Disclaimer */}
             <div className="mb-3 px-2">
@@ -157,11 +161,12 @@ export default function SkipSelection() {
                 </div>
               </div>
               <div className="flex space-x-3">
-                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-black font-semibold">
+                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50">
                   Back
                 </Button>
-                <Button className="flex-1 bg-orange-600 hover:bg-orange-700 text-black font-semibold">
-                  Continue →
+                <Button className="flex-1 bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group">
+                  <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+                  <span className="relative z-10">Continue →</span>
                 </Button>
               </div>
             </div>
@@ -178,11 +183,12 @@ export default function SkipSelection() {
                 <span className="text-gray-400 text-sm">14 day hire</span>
               </div>
               <div className="flex space-x-4">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-black font-semibold">
+                <Button className="bg-orange-500 hover:bg-orange-600 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50">
                   Back
                 </Button>
-                <Button className="bg-orange-600 hover:bg-orange-700 text-black font-semibold px-8">
-                  Continue →
+                <Button className="bg-orange-600 hover:bg-orange-700 text-black font-semibold px-8 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group">
+                  <span className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+                  <span className="relative z-10">Continue →</span>
                 </Button>
               </div>
             </div>
@@ -257,15 +263,19 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
         {isSelected ? (
           <Button 
             onClick={onSelect}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 animate-pulse"
           >
             Selected ✓
           </Button>
         ) : (
           <Button 
             onClick={onSelect}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-black font-semibold"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 relative overflow-hidden group"
           >
-            Select This Skip →
+            <span className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+            <span className="relative z-10">Select This Skip →</span>
+          </Button>
+        )}
+      </div>
     </div>
 }
