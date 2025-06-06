@@ -100,148 +100,148 @@ export default function SkipSelection() {
   }
 
   return (
-    <div className="min-h-screen bg-black relative">
+    <div className="min-h-screen bg-black flex">
       {/* Three.js Animated Background */}
       <ThreeBackground />
       
-      {/* Progress Steps */}
-      <div className="bg-gray-900/90 border-b border-gray-700 relative z-10 backdrop-blur-sm">
-        <div className="container max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-center space-x-4 md:space-x-8 overflow-x-auto">
-            <StepIndicator icon={MapPin} label="Postcode" isCompleted={true} isActive={false} />
-            <StepIndicator icon={FileCheck} label="Waste Type" isCompleted={true} isActive={false} />
-            <StepIndicator icon={Check} label="Select Skip" isCompleted={false} isActive={true} />
-            <StepIndicator icon={FileCheck} label="Permit Check" isCompleted={false} isActive={false} />
-            <StepIndicator icon={Calendar} label="Choose Date" isCompleted={false} isActive={false} />
-            <StepIndicator icon={CreditCard} label="Payment" isCompleted={false} isActive={false} />
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content with Sidebar Layout */}
-      <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sticky Sidebar Filters */}
-          <div className="lg:w-80 lg:sticky lg:top-24 lg:h-fit space-y-6">
-            <div className="bg-gray-800/90 rounded-lg p-6 backdrop-blur-sm">
-              <h2 className="text-xl font-bold text-white mb-4">Filter by Size</h2>
-              <div className="space-y-3">
-                {['Small (4-6 yards)', 'Medium (8-10 yards)', 'Large (12-16 yards)', 'Extra Large (20-40 yards)'].map((range, index) => (
-                  <div 
-                    key={index} 
-                    onClick={() => handleSizeFilterClick(range)}
-                    className={`flex items-center p-3 rounded-lg transition-all duration-300 cursor-pointer ${
-                      selectedSizeFilter === range 
-                        ? 'bg-orange-500/20 border border-orange-500/50' 
-                        : 'bg-gray-700/50 hover:bg-gray-700'
-                    }`}
-                  >
-                    <div className={`w-3 h-3 rounded-full mr-3 transition-colors ${
-                      selectedSizeFilter === range ? 'bg-orange-400' : 'bg-gray-400'
-                    }`}></div>
-                    <span className={`transition-colors ${
-                      selectedSizeFilter === range ? 'text-orange-300' : 'text-gray-300'
-                    }`}>{range}</span>
-                    {selectedSizeFilter === range && (
-                      <span className="ml-auto text-orange-400 text-sm">✓</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-              
-              {selectedSizeFilter && (
-                <div className="mt-4 pt-4 border-t border-gray-700">
-                  <button 
-                    onClick={() => setSelectedSizeFilter(null)}
-                    className="text-orange-400 hover:text-orange-300 text-sm transition-colors"
-                  >
-                    Clear Filter
-                  </button>
+      {/* Left Sidebar - Fixed to left edge */}
+      <div className="w-80 bg-gray-900/95 h-screen fixed top-0 left-0 backdrop-blur-sm border-r border-gray-700 hidden lg:block z-30">
+        <div className="p-6 space-y-6">
+          <div className="bg-gray-800/60 rounded-lg p-6">
+            <h2 className="text-xl font-bold text-white mb-4">Filter by Size</h2>
+            <div className="space-y-3">
+              {['Small (4-6 yards)', 'Medium (8-10 yards)', 'Large (12-16 yards)', 'Extra Large (20-40 yards)'].map((range, index) => (
+                <div 
+                  key={index} 
+                  onClick={() => handleSizeFilterClick(range)}
+                  className={`flex items-center p-3 rounded-lg transition-all duration-300 cursor-pointer ${
+                    selectedSizeFilter === range 
+                      ? 'bg-orange-500/20 border border-orange-500/50' 
+                      : 'bg-gray-700/50 hover:bg-gray-700'
+                  }`}
+                >
+                  <div className={`w-3 h-3 rounded-full mr-3 transition-colors ${
+                    selectedSizeFilter === range ? 'bg-orange-400' : 'bg-gray-400'
+                  }`}></div>
+                  <span className={`transition-colors ${
+                    selectedSizeFilter === range ? 'text-orange-300' : 'text-gray-300'
+                  }`}>{range}</span>
+                  {selectedSizeFilter === range && (
+                    <span className="ml-auto text-orange-400 text-sm">●</span>
+                  )}
                 </div>
-              )}
-            </div>
-
-            <div className="bg-gray-800/90 rounded-lg p-6 backdrop-blur-sm">
-              <h2 className="text-xl font-bold text-white mb-4">Quick Facts</h2>
-              <div className="space-y-3 text-sm text-gray-300">
-                <div className="flex items-start">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
-                  <span>All skips include 14-day hire period</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
-                  <span>Free delivery and collection included</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
-                  <span>Road placement available for most sizes</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Main Content Area */}
-          <div className="flex-1">
-            {/* Page Header */}
-            <div className="mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Choose Your Skip Size
-              </h1>
-              <p className="text-gray-400 text-lg">
-                Select the skip size that best suits your needs
-              </p>
-            </div>
-
-            {/* Filter Results Info */}
-            {selectedSizeFilter && (
-              <div className="mb-6 flex items-center justify-between">
-                <div className="text-gray-300">
-                  <span className="text-orange-400 font-semibold">{filteredSkips?.length || 0}</span> skips found in <span className="text-orange-300">{selectedSizeFilter}</span>
-                </div>
-              </div>
-            )}
-
-            {/* Skip Cards in Masonry Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredSkips?.map((skip) => (
-                <SkipCard 
-                  key={skip.id} 
-                  skip={skip} 
-                  isSelected={selectedSkipId === skip.id}
-                  onSelect={() => handleSelectSkip(skip.id)}
-                  images={getSkipImages(parseInt(skip.size))}
-                />
               ))}
             </div>
             
-            {/* No Results State */}
-            {filteredSkips?.length === 0 && selectedSizeFilter && (
-              <div className="text-center py-12">
-                <div className="text-gray-400 mb-4">
-                  No skips found in the selected size range
-                </div>
+            {selectedSizeFilter && (
+              <div className="mt-4 pt-4 border-t border-gray-700">
                 <button 
                   onClick={() => setSelectedSizeFilter(null)}
-                  className="bg-orange-500 hover:bg-orange-600 text-black px-6 py-2 rounded-lg font-semibold transition-colors"
+                  className="text-orange-400 hover:text-orange-300 text-sm transition-colors"
                 >
-                  Show All Skips
+                  Clear Filter
                 </button>
               </div>
             )}
           </div>
+
+          <div className="bg-gray-800/60 rounded-lg p-6">
+            <h2 className="text-xl font-bold text-white mb-4">Quick Facts</h2>
+            <div className="space-y-3 text-sm text-gray-300">
+              <div className="flex items-start">
+                <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
+                <span>All skips include 14-day hire period</span>
+              </div>
+              <div className="flex items-start">
+                <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
+                <span>Free delivery and collection included</span>
+              </div>
+              <div className="flex items-start">
+                <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
+                <span>Road placement available for most sizes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area - Offset by sidebar width */}
+      <div className="flex-1 lg:ml-80">
+        {/* Progress Steps */}
+        <div className="bg-gray-900/90 border-b border-gray-700 relative z-10 backdrop-blur-sm">
+          <div className="container max-w-7xl mx-auto px-4 py-6">
+            <div className="flex items-center justify-center space-x-4 md:space-x-8 overflow-x-auto">
+              <StepIndicator icon={MapPin} label="Postcode" isCompleted={true} isActive={false} />
+              <StepIndicator icon={FileCheck} label="Waste Type" isCompleted={true} isActive={false} />
+              <StepIndicator icon={Check} label="Select Skip" isCompleted={false} isActive={true} />
+              <StepIndicator icon={FileCheck} label="Permit Check" isCompleted={false} isActive={false} />
+              <StepIndicator icon={Calendar} label="Choose Date" isCompleted={false} isActive={false} />
+              <StepIndicator icon={CreditCard} label="Payment" isCompleted={false} isActive={false} />
+            </div>
+          </div>
         </div>
 
-        {/* Disclaimer - only show when skip is selected */}
-        {selectedSkipId && (
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg relative z-10 backdrop-blur-sm">
-            <p className="text-gray-400 text-sm text-center leading-relaxed">
-              Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
+        {/* Content Container */}
+        <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Choose Your Skip Size
+            </h1>
+            <p className="text-gray-400 text-lg">
+              Select the skip size that best suits your needs
             </p>
           </div>
-        )}
 
-        {/* Add bottom padding to prevent overlap with fixed bottom bar */}
-        {selectedSkipId && <div className="h-32 md:h-0"></div>}
+          {/* Filter Results Info */}
+          {selectedSizeFilter && (
+            <div className="mb-6 flex items-center justify-between">
+              <div className="text-gray-300">
+                <span className="text-orange-400 font-semibold">{filteredSkips?.length || 0}</span> skips found in <span className="text-orange-300">{selectedSizeFilter}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Skip Cards in Masonry Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredSkips?.map((skip) => (
+              <SkipCard 
+                key={skip.id} 
+                skip={skip} 
+                isSelected={selectedSkipId === skip.id}
+                onSelect={() => handleSelectSkip(skip.id)}
+                images={getSkipImages(parseInt(skip.size))}
+              />
+            ))}
+          </div>
+          
+          {/* No Results State */}
+          {filteredSkips?.length === 0 && selectedSizeFilter && (
+            <div className="text-center py-12">
+              <div className="text-gray-400 mb-4">
+                No skips found in the selected size range
+              </div>
+              <button 
+                onClick={() => setSelectedSizeFilter(null)}
+                className="bg-orange-500 hover:bg-orange-600 text-black px-6 py-2 rounded-lg font-semibold transition-colors"
+              >
+                Show All Skips
+              </button>
+            </div>
+          )}
+
+          {/* Disclaimer - only show when skip is selected */}
+          {selectedSkipId && (
+            <div className="mt-8 p-4 bg-gray-800/50 rounded-lg relative z-10 backdrop-blur-sm">
+              <p className="text-gray-400 text-sm text-center leading-relaxed">
+                Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
+              </p>
+            </div>
+          )}
+
+          {/* Add bottom padding to prevent overlap with fixed bottom bar */}
+          {selectedSkipId && <div className="h-32 md:h-0"></div>}
+        </div>
       </div>
 
       {/* Bottom Navigation */}
