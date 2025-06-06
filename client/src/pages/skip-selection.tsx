@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import type { SkipApiResponse } from "@/lib/api";
-import skipImage1 from "@assets/IMG_5661.jpg";
-import skipImage2 from "@assets/IMG_5662.jpg";
-import skipImage3 from "@assets/IMG_5663.jpg";
-import skipImage4 from "@assets/IMG_5664.jpg";
+import skipImage1 from "@assets/ChatGPT Image Jun 6, 2025, 11_41_03 AM.png";
+import skipImage2 from "@assets/image_1749203002605.png";
+import skipImage3 from "@assets/ChatGPT Image Jun 6, 2025, 11_33_05 AM.png";
+import skipImage4 from "@assets/image_1749201568179.png";
 import Skip360Viewer from "@/components/skip-360-viewer";
 
 export default function SkipSelection() {
@@ -33,16 +33,16 @@ export default function SkipSelection() {
 
   const getSkipImages = (size: number) => {
     const skipImageSets = {
-      4: [skipImage1, skipImage3, skipImage4],
-      6: [skipImage3, skipImage1, skipImage4], 
-      8: [skipImage1, skipImage3, skipImage4],
-      10: [skipImage3, skipImage1, skipImage4],
-      12: [skipImage1, skipImage3, skipImage4],
-      14: [skipImage3, skipImage1, skipImage4],
-      20: [skipImage2, skipImage2, skipImage2], // Use IMG_5662.jpg for 20 yard
-      40: [skipImage2, skipImage2, skipImage2]  // Use IMG_5662.jpg for 40 yard
+      4: [skipImage1, skipImage3, skipImage2],
+      6: [skipImage2, skipImage1, skipImage3], 
+      8: [skipImage3, skipImage2, skipImage1],
+      10: [skipImage1, skipImage3, skipImage2],
+      12: [skipImage2, skipImage1, skipImage3],
+      14: [skipImage3, skipImage2, skipImage1],
+      20: [skipImage4, skipImage2, skipImage3],
+      40: [skipImage4, skipImage2, skipImage3]
     };
-    return skipImageSets[size as keyof typeof skipImageSets] || [skipImage1, skipImage3, skipImage4];
+    return skipImageSets[size as keyof typeof skipImageSets] || [skipImage1, skipImage2, skipImage3];
   };
 
   if (isLoading) {
@@ -255,7 +255,10 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
 
         {/* Select Button */}
         {isSelected ? (
-          <Button className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold">
+          <Button 
+            onClick={onSelect}
+            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold"
+          >
             Selected ✓
           </Button>
         ) : (
