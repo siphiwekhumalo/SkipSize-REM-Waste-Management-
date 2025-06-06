@@ -119,25 +119,7 @@ export default function Skip360Viewer({ images, alt, className = "" }: Skip360Vi
           />
         )}
         
-        {/* Controls overlay */}
-        <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={toggleZoom}
-            className="p-2 bg-black/50 hover:bg-black/70 text-white border-0"
-          >
-            {isZoomed ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={autoRotate}
-            className="p-2 bg-black/50 hover:bg-black/70 text-white border-0"
-          >
-            <RotateCw className="w-4 h-4" />
-          </Button>
-        </div>
+
         
         {/* Navigation dots */}
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
