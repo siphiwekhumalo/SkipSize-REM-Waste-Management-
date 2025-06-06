@@ -189,11 +189,11 @@ function SkipCard({ skip, isSelected, onSelect, image }: {
       isSelected ? 'ring-2 ring-blue-500 bg-gray-750' : 'hover:bg-gray-750'
     }`}>
       {/* Skip Image */}
-      <div className="relative">
+      <div className="relative bg-gray-100 p-4">
         <img 
           src={image}
           alt={skip.name}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-contain"
         />
         {/* Size Badge */}
         <div className="absolute top-3 right-3">
