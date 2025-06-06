@@ -263,7 +263,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
         {isSelected ? (
           <Button 
             onClick={onSelect}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 animate-pulse"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50"
           >
             Selected ✓
           </Button>
