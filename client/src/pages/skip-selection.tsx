@@ -223,7 +223,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
           className="h-48"
         />
         {/* Size Badge */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-10">
           <Badge className="bg-orange-500 text-black border-0">
             {skip.size}
           </Badge>
