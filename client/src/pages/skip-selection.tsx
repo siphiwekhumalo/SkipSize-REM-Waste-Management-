@@ -147,10 +147,10 @@ export default function SkipSelection() {
                 </div>
               </div>
               <div className="flex space-x-3">
-                <Button variant="outline" className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700">
+                <Button className="flex-1 bg-orange-500 hover:bg-orange-600 text-black font-semibold">
                   Back
                 </Button>
-                <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                <Button className="flex-1 bg-orange-600 hover:bg-orange-700 text-black font-semibold">
                   Continue →
                 </Button>
               </div>
@@ -162,16 +162,16 @@ export default function SkipSelection() {
                 <span className="text-white font-semibold">
                   {skips?.find(s => s.id === selectedSkipId)?.name}
                 </span>
-                <span className="text-blue-400 font-bold text-xl">
+                <span className="text-orange-400 font-bold text-xl">
                   £{skips?.find(s => s.id === selectedSkipId)?.price || 0}
                 </span>
                 <span className="text-gray-400 text-sm">14 day hire</span>
               </div>
               <div className="flex space-x-4">
-                <Button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold">
+                <Button className="bg-orange-500 hover:bg-orange-600 text-black font-semibold">
                   Back
                 </Button>
-                <Button className="bg-blue-600 hover:bg-blue-700 px-8">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-black font-semibold px-8">
                   Continue →
                 </Button>
               </div>
