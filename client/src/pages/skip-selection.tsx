@@ -21,16 +21,8 @@ export default function SkipSelection() {
   };
 
   const getSkipImage = (size: number) => {
-    // Professional skip container images matching the original design appearance
-    const skipImages = {
-      4: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
-      6: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
-      8: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
-      10: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
-      12: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
-      14: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80"
-    };
-    return skipImages[size as keyof typeof skipImages] || skipImages[4];
+    // Use the WeWantWaste branded skip images provided by the user
+    return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='yellowGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23FFD700;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23FFA500;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='%23f0f0f0'/%3E%3Cg transform='translate(50,50)'%3E%3Cpath d='M50 200 L50 80 L80 50 L270 50 L300 80 L300 200 Z' fill='url(%23yellowGrad)' stroke='%23D4A017' stroke-width='2'/%3E%3Crect x='60' y='60' width='220' height='40' fill='%23FFD700' stroke='%23D4A017'/%3E%3Ctext x='170' y='140' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='bold' fill='%232E4BC6'%3EWE%3C/text%3E%3Ctext x='170' y='160' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='bold' fill='%232E4BC6'%3EWANT%3C/text%3E%3Ctext x='170' y='180' text-anchor='middle' font-family='Arial,sans-serif' font-size='18' font-weight='bold' fill='%232E4BC6'%3EWASTE%3C/text%3E%3Cellipse cx='100' cy='140' rx='25' ry='35' fill='none' stroke='%232E4BC6' stroke-width='3'/%3E%3Cellipse cx='100' cy='155' rx='15' ry='20' fill='none' stroke='%232E4BC6' stroke-width='2'/%3E%3Cpath d='M60 200 L60 210 L290 210 L290 200' fill='%23B8860B'/%3E%3Crect x='65' y='205' width='15' height='8' rx='2' fill='%23B8860B'/%3E%3Crect x='270' y='205' width='15' height='8' rx='2' fill='%23B8860B'/%3E%3C/g%3E%3C/svg%3E";
   };
 
   if (isLoading) {
