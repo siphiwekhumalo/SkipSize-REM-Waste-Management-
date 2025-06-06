@@ -100,29 +100,67 @@ export default function SkipSelection() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content with Sidebar Layout */}
       <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
-        {/* Page Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Choose Your Skip Size
-          </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Select the skip size that best suits your needs
-          </p>
-        </div>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar Filters */}
+          <div className="lg:w-80 space-y-6">
+            <div className="bg-gray-800/90 rounded-lg p-6 backdrop-blur-sm">
+              <h2 className="text-xl font-bold text-white mb-4">Filter by Size</h2>
+              <div className="space-y-3">
+                {['Small (4-6 yards)', 'Medium (8-10 yards)', 'Large (12-16 yards)', 'Extra Large (20-40 yards)'].map((range, index) => (
+                  <div key={index} className="flex items-center p-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
+                    <div className="w-3 h-3 bg-orange-400 rounded-full mr-3"></div>
+                    <span className="text-gray-300">{range}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        {/* Skip Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {skips?.map((skip) => (
-            <SkipCard 
-              key={skip.id} 
-              skip={skip} 
-              isSelected={selectedSkipId === skip.id}
-              onSelect={() => handleSelectSkip(skip.id)}
-              images={getSkipImages(parseInt(skip.size))}
-            />
-          ))}
+            <div className="bg-gray-800/90 rounded-lg p-6 backdrop-blur-sm">
+              <h2 className="text-xl font-bold text-white mb-4">Quick Facts</h2>
+              <div className="space-y-3 text-sm text-gray-300">
+                <div className="flex items-start">
+                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
+                  <span>All skips include 14-day hire period</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
+                  <span>Free delivery and collection included</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-3 mt-2"></span>
+                  <span>Road placement available for most sizes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content Area */}
+          <div className="flex-1">
+            {/* Page Header */}
+            <div className="mb-8">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Choose Your Skip Size
+              </h1>
+              <p className="text-gray-400 text-lg">
+                Select the skip size that best suits your needs
+              </p>
+            </div>
+
+            {/* Skip Cards in Masonry Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {skips?.map((skip) => (
+                <SkipCard 
+                  key={skip.id} 
+                  skip={skip} 
+                  isSelected={selectedSkipId === skip.id}
+                  onSelect={() => handleSelectSkip(skip.id)}
+                  images={getSkipImages(parseInt(skip.size))}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Disclaimer - only show when skip is selected */}
