@@ -234,7 +234,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
           className="h-full"
         />
         {/* Size Badge */}
-        <div className="absolute top-3 right-3 z-10">
+        <div className="absolute top-3 right-3">
           <Badge className="bg-orange-500 text-black border-0">
             {skip.size}
           </Badge>
@@ -255,10 +255,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
 
         {/* Select Button */}
         {isSelected ? (
-          <Button 
-            onClick={onSelect}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold"
-          >
+          <Button className="w-full bg-orange-600 hover:bg-orange-700 text-black font-semibold">
             Selected ✓
           </Button>
         ) : (
