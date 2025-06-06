@@ -22,85 +22,90 @@ export default function SkipSelection() {
   };
 
   const getSkipImage = (size: number) => {
-    // Create exact replica of WeWantWaste skip containers from examples
+    // Exact replica of WeWantWaste skip container from the provided image
     return `data:image/svg+xml,${encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
         <defs>
-          <linearGradient id="yellowMain" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-            <stop offset="50%" style="stop-color:#FFC107;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#FF8F00;stop-opacity:1" />
+          <linearGradient id="yellowBody" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFD700"/>
+            <stop offset="100%" style="stop-color:#FFA500"/>
           </linearGradient>
-          <linearGradient id="yellowTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#FFECB3;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+          <linearGradient id="yellowSide" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#E6AC00"/>
+            <stop offset="100%" style="stop-color:#CC9900"/>
           </linearGradient>
-          <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="rgba(0,0,0,0.3)"/>
-          </filter>
+          <linearGradient id="yellowTop" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFF176"/>
+            <stop offset="100%" style="stop-color:#FFD700"/>
+          </linearGradient>
         </defs>
         
-        <rect width="400" height="300" fill="#D3D3D3"/>
+        <!-- Background -->
+        <rect width="400" height="280" fill="#BDBDBD"/>
         
-        <!-- Skip Container with 3D perspective -->
-        <g transform="translate(20,30)">
-          <!-- Left side panel (angled) -->
-          <path d="M20 200 L20 100 L35 85 L35 185 Z" fill="#E6AC00" stroke="#D4A017" stroke-width="1"/>
+        <!-- Skip Container -->
+        <g transform="translate(10,40)">
+          <!-- Left side (perspective) -->
+          <path d="M10 160 L10 80 L40 60 L40 140 Z" fill="url(#yellowSide)"/>
           
           <!-- Main front face -->
-          <path d="M35 200 L35 85 L315 85 L315 200 Z" fill="url(#yellowMain)" stroke="#D4A017" stroke-width="2" filter="url(#dropShadow)"/>
+          <path d="M40 160 L40 60 L320 60 L320 160 Z" fill="url(#yellowBody)"/>
           
-          <!-- Right side panel (angled) -->
-          <path d="M315 200 L315 85 L330 100 L330 215 Z" fill="#CC9900" stroke="#D4A017" stroke-width="1"/>
+          <!-- Right side (angled) -->
+          <path d="M320 160 L320 60 L350 80 L350 180 L320 160 Z" fill="url(#yellowSide)"/>
           
-          <!-- Top rim with 3D effect -->
-          <path d="M20 100 L35 85 L315 85 L330 100 L315 110 L35 110 Z" fill="url(#yellowTop)" stroke="#D4A017" stroke-width="1"/>
+          <!-- Top lid (left section) -->
+          <path d="M10 80 L40 60 L180 60 L150 80 Z" fill="url(#yellowTop)"/>
           
-          <!-- Top opening -->
-          <rect x="50" y="85" width="250" height="25" fill="#FFD700" stroke="#D4A017" stroke-width="1"/>
+          <!-- Top lid (right section) -->
+          <path d="M180 60 L320 60 L350 80 L210 80 Z" fill="url(#yellowTop)"/>
           
-          <!-- Lifting hooks on top -->
-          <rect x="70" y="87" width="12" height="18" rx="2" fill="#B8860B"/>
-          <rect x="268" y="87" width="12" height="18" rx="2" fill="#B8860B"/>
+          <!-- Top opening edge -->
+          <rect x="60" y="60" width="240" height="20" fill="#FFD700"/>
           
-          <!-- Red warning chevrons on left side -->
-          <g fill="#DC2626">
-            <polygon points="15,120 25,115 25,125"/>
-            <polygon points="15,140 25,135 25,145"/>
-            <polygon points="15,160 25,155 25,165"/>
-            <polygon points="15,180 25,175 25,185"/>
+          <!-- Lifting hooks -->
+          <rect x="80" y="62" width="10" height="16" rx="2" fill="#CC9900"/>
+          <rect x="270" y="62" width="10" height="16" rx="2" fill="#CC9900"/>
+          
+          <!-- Red warning chevrons on left -->
+          <g fill="#D32F2F">
+            <path d="M5 100 L15 95 L15 105 Z"/>
+            <path d="M5 120 L15 115 L15 125 Z"/>
+            <path d="M5 140 L15 135 L15 145 Z"/>
           </g>
           
-          <!-- Red warning chevrons on right side -->
-          <g fill="#DC2626">
-            <polygon points="335,115 325,120 335,125"/>
-            <polygon points="335,135 325,140 335,145"/>
-            <polygon points="335,155 325,160 335,165"/>
-            <polygon points="335,175 325,180 335,185"/>
+          <!-- Red warning chevrons on right -->
+          <g fill="#D32F2F">
+            <path d="M355 95 L345 100 L355 105 Z"/>
+            <path d="M355 115 L345 120 L355 125 Z"/>
+            <path d="M355 135 L345 140 L355 145 Z"/>
           </g>
           
-          <!-- WeWantWaste Logo centered on front -->
-          <g transform="translate(175,142)">
-            <!-- Blue oval logo -->
-            <ellipse cx="-50" cy="0" rx="22" ry="35" fill="none" stroke="#1E40AF" stroke-width="4"/>
-            <ellipse cx="-50" cy="-5" rx="14" ry="20" fill="none" stroke="#1E40AF" stroke-width="3"/>
-            <ellipse cx="-50" cy="-8" rx="8" ry="12" fill="none" stroke="#1E40AF" stroke-width="2"/>
+          <!-- WeWantWaste Logo -->
+          <g transform="translate(180,110)">
+            <!-- Blue flame logo -->
+            <g fill="#1976D2">
+              <path d="M-60 0 C-65 -15 -55 -25 -45 -20 C-40 -30 -25 -25 -25 -10 C-20 -20 -10 -15 -15 0 C-10 10 -20 15 -30 10 C-40 15 -50 10 -45 0 Z"/>
+              <path d="M-50 -5 C-52 -12 -48 -18 -42 -15 C-40 -20 -32 -18 -32 -8 C-30 -15 -25 -12 -27 -5 C-25 0 -30 3 -35 1 C-40 3 -45 1 -42 -5 Z"/>
+            </g>
             
             <!-- Company text -->
-            <text x="15" y="-18" text-anchor="middle" font-family="Arial Black,sans-serif" 
-                  font-size="24" font-weight="900" fill="#1E40AF">WE</text>
-            <text x="15" y="0" text-anchor="middle" font-family="Arial Black,sans-serif" 
-                  font-size="24" font-weight="900" fill="#1E40AF">WANT</text>
-            <text x="15" y="18" text-anchor="middle" font-family="Arial Black,sans-serif" 
-                  font-size="24" font-weight="900" fill="#1E40AF">WASTE</text>
+            <text x="0" y="-8" text-anchor="middle" font-family="Arial,sans-serif" 
+                  font-size="22" font-weight="900" fill="#1976D2">WE</text>
+            <text x="0" y="12" text-anchor="middle" font-family="Arial,sans-serif" 
+                  font-size="22" font-weight="900" fill="#1976D2">WANT</text>
+            <text x="0" y="32" text-anchor="middle" font-family="Arial,sans-serif" 
+                  font-size="22" font-weight="900" fill="#1976D2">WASTE</text>
           </g>
           
-          <!-- Bottom base with 3D effect -->
-          <path d="M35 200 L315 200 L330 215 L20 215 Z" fill="#B8860B" stroke="#996515" stroke-width="1"/>
+          <!-- Bottom runners -->
+          <path d="M40 160 L320 160 L350 180 L10 180 Z" fill="#B8860B"/>
           
-          <!-- Bottom lifting points -->
-          <ellipse cx="60" cy="210" rx="8" ry="4" fill="#8B4513"/>
-          <ellipse cx="290" cy="210" rx="8" ry="4" fill="#8B4513"/>
+          <!-- Bottom lifting brackets -->
+          <g fill="#8D6E63">
+            <path d="M70 170 L90 170 L85 185 L75 185 Z"/>
+            <path d="M270 170 L290 170 L285 185 L275 185 Z"/>
+          </g>
         </g>
       </svg>
     `)}`;
