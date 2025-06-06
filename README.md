@@ -1,4 +1,4 @@
-A modern, responsive web application designed to simplify skip size selection for WeWantWaste customers. Built with React, TypeScript, and featuring an engaging 3D animated interface with real-time filtering and interactive 360-degree product visualization.
+ Built with React, TypeScript, and featuring an engaging 3D animated interface with real-time filtering and interactive 360-degree product visualization.
 ## 🎨 Design Approach & Redesign Philosophy
 ### Our Redesign Strategy
 This project represents a complete reimagining of the traditional skip selection experience, moving away from conventional layouts to create a modern, engaging interface that reflects WeWantWaste's commitment to innovation.
