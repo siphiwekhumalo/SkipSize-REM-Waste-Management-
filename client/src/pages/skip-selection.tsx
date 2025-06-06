@@ -21,6 +21,7 @@ export default function SkipSelection() {
   });
 
   const [selectedSkipId, setSelectedSkipId] = useState<number | null>(null);
+  const [selectedSizeFilter, setSelectedSizeFilter] = useState<string | null>(null);
   const [location, setLocation] = useLocation();
 
   const handleSelectSkip = (skipId: number) => {
@@ -47,6 +48,23 @@ export default function SkipSelection() {
       40: [skipImage4, skipImage2, skipImage3]
     };
     return skipImageSets[size as keyof typeof skipImageSets] || [skipImage1, skipImage2, skipImage3];
+  };
+
+  const getSizeRange = (size: number) => {
+    if (size >= 4 && size <= 6) return 'Small (4-6 yards)';
+    if (size >= 8 && size <= 10) return 'Medium (8-10 yards)';
+    if (size >= 12 && size <= 16) return 'Large (12-16 yards)';
+    if (size >= 20) return 'Extra Large (20-40 yards)';
+    return 'Other';
+  };
+
+  const filteredSkips = skips?.filter(skip => {
+    if (!selectedSizeFilter) return true;
+    return getSizeRange(parseInt(skip.size)) === selectedSizeFilter;
+  });
+
+  const handleSizeFilterClick = (range: string) => {
+    setSelectedSizeFilter(selectedSizeFilter === range ? null : range);
   };
 
   if (isLoading) {
@@ -103,18 +121,44 @@ export default function SkipSelection() {
       {/* Main Content with Sidebar Layout */}
       <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Filters */}
-          <div className="lg:w-80 space-y-6">
+          {/* Sticky Sidebar Filters */}
+          <div className="lg:w-80 lg:sticky lg:top-24 lg:h-fit space-y-6">
             <div className="bg-gray-800/90 rounded-lg p-6 backdrop-blur-sm">
               <h2 className="text-xl font-bold text-white mb-4">Filter by Size</h2>
               <div className="space-y-3">
                 {['Small (4-6 yards)', 'Medium (8-10 yards)', 'Large (12-16 yards)', 'Extra Large (20-40 yards)'].map((range, index) => (
-                  <div key={index} className="flex items-center p-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
-                    <div className="w-3 h-3 bg-orange-400 rounded-full mr-3"></div>
-                    <span className="text-gray-300">{range}</span>
+                  <div 
+                    key={index} 
+                    onClick={() => handleSizeFilterClick(range)}
+                    className={`flex items-center p-3 rounded-lg transition-all duration-300 cursor-pointer ${
+                      selectedSizeFilter === range 
+                        ? 'bg-orange-500/20 border border-orange-500/50' 
+                        : 'bg-gray-700/50 hover:bg-gray-700'
+                    }`}
+                  >
+                    <div className={`w-3 h-3 rounded-full mr-3 transition-colors ${
+                      selectedSizeFilter === range ? 'bg-orange-400' : 'bg-gray-400'
+                    }`}></div>
+                    <span className={`transition-colors ${
+                      selectedSizeFilter === range ? 'text-orange-300' : 'text-gray-300'
+                    }`}>{range}</span>
+                    {selectedSizeFilter === range && (
+                      <span className="ml-auto text-orange-400 text-sm">✓</span>
+                    )}
                   </div>
                 ))}
               </div>
+              
+              {selectedSizeFilter && (
+                <div className="mt-4 pt-4 border-t border-gray-700">
+                  <button 
+                    onClick={() => setSelectedSizeFilter(null)}
+                    className="text-orange-400 hover:text-orange-300 text-sm transition-colors"
+                  >
+                    Clear Filter
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="bg-gray-800/90 rounded-lg p-6 backdrop-blur-sm">
@@ -148,9 +192,18 @@ export default function SkipSelection() {
               </p>
             </div>
 
+            {/* Filter Results Info */}
+            {selectedSizeFilter && (
+              <div className="mb-6 flex items-center justify-between">
+                <div className="text-gray-300">
+                  <span className="text-orange-400 font-semibold">{filteredSkips?.length || 0}</span> skips found in <span className="text-orange-300">{selectedSizeFilter}</span>
+                </div>
+              </div>
+            )}
+
             {/* Skip Cards in Masonry Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {skips?.map((skip) => (
+              {filteredSkips?.map((skip) => (
                 <SkipCard 
                   key={skip.id} 
                   skip={skip} 
@@ -160,6 +213,21 @@ export default function SkipSelection() {
                 />
               ))}
             </div>
+            
+            {/* No Results State */}
+            {filteredSkips?.length === 0 && selectedSizeFilter && (
+              <div className="text-center py-12">
+                <div className="text-gray-400 mb-4">
+                  No skips found in the selected size range
+                </div>
+                <button 
+                  onClick={() => setSelectedSizeFilter(null)}
+                  className="bg-orange-500 hover:bg-orange-600 text-black px-6 py-2 rounded-lg font-semibold transition-colors"
+                >
+                  Show All Skips
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
