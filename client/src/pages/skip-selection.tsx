@@ -22,65 +22,86 @@ export default function SkipSelection() {
   };
 
   const getSkipImage = (size: number) => {
-    // Create properly sized skip images with correct yard labels
+    // Create exact replica of WeWantWaste skip containers from examples
     return `data:image/svg+xml,${encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
         <defs>
-          <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="yellowMain" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#FFC300;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#FFC107;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FF8F00;stop-opacity:1" />
           </linearGradient>
+          <linearGradient id="yellowTop" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFECB3;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+          </linearGradient>
+          <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="rgba(0,0,0,0.3)"/>
+          </filter>
         </defs>
-        <rect width="400" height="300" fill="#f5f5f5"/>
         
-        <!-- Skip Container -->
-        <g transform="translate(50,40)">
-          <!-- Main container body -->
-          <path d="M30 180 L30 90 L50 70 L250 70 L270 90 L270 180 L250 200 L50 200 Z" 
-                fill="url(#yellowGrad)" 
-                stroke="#E6B800" 
-                stroke-width="2"/>
+        <rect width="400" height="300" fill="#D3D3D3"/>
+        
+        <!-- Skip Container with 3D perspective -->
+        <g transform="translate(20,30)">
+          <!-- Left side panel (angled) -->
+          <path d="M20 200 L20 100 L35 85 L35 185 Z" fill="#E6AC00" stroke="#D4A017" stroke-width="1"/>
+          
+          <!-- Main front face -->
+          <path d="M35 200 L35 85 L315 85 L315 200 Z" fill="url(#yellowMain)" stroke="#D4A017" stroke-width="2" filter="url(#dropShadow)"/>
+          
+          <!-- Right side panel (angled) -->
+          <path d="M315 200 L315 85 L330 100 L330 215 Z" fill="#CC9900" stroke="#D4A017" stroke-width="1"/>
+          
+          <!-- Top rim with 3D effect -->
+          <path d="M20 100 L35 85 L315 85 L330 100 L315 110 L35 110 Z" fill="url(#yellowTop)" stroke="#D4A017" stroke-width="1"/>
           
           <!-- Top opening -->
-          <rect x="35" y="70" width="230" height="30" fill="#FFD700" stroke="#E6B800" stroke-width="1"/>
-          <rect x="50" y="75" width="15" height="20" fill="#DAA520"/>
-          <rect x="235" y="75" width="15" height="20" fill="#DAA520"/>
+          <rect x="50" y="85" width="250" height="25" fill="#FFD700" stroke="#D4A017" stroke-width="1"/>
           
-          <!-- Side warning stripes -->
-          <g stroke="#DC2626" stroke-width="4" fill="none">
-            <line x1="25" y1="100" x2="15" y2="120"/>
-            <line x1="25" y1="130" x2="15" y2="150"/>
-            <line x1="25" y1="160" x2="15" y2="180"/>
-            <line x1="275" y1="100" x2="285" y2="120"/>
-            <line x1="275" y1="130" x2="285" y2="150"/>
-            <line x1="275" y1="160" x2="285" y2="180"/>
+          <!-- Lifting hooks on top -->
+          <rect x="70" y="87" width="12" height="18" rx="2" fill="#B8860B"/>
+          <rect x="268" y="87" width="12" height="18" rx="2" fill="#B8860B"/>
+          
+          <!-- Red warning chevrons on left side -->
+          <g fill="#DC2626">
+            <polygon points="15,120 25,115 25,125"/>
+            <polygon points="15,140 25,135 25,145"/>
+            <polygon points="15,160 25,155 25,165"/>
+            <polygon points="15,180 25,175 25,185"/>
           </g>
           
-          <!-- WeWantWaste Logo -->
-          <g transform="translate(150,135)">
-            <!-- Logo oval -->
-            <ellipse cx="-40" cy="0" rx="20" ry="30" fill="none" stroke="#2563EB" stroke-width="3"/>
-            <ellipse cx="-40" cy="0" rx="12" ry="18" fill="none" stroke="#2563EB" stroke-width="2"/>
+          <!-- Red warning chevrons on right side -->
+          <g fill="#DC2626">
+            <polygon points="335,115 325,120 335,125"/>
+            <polygon points="335,135 325,140 335,145"/>
+            <polygon points="335,155 325,160 335,165"/>
+            <polygon points="335,175 325,180 335,185"/>
+          </g>
+          
+          <!-- WeWantWaste Logo centered on front -->
+          <g transform="translate(175,142)">
+            <!-- Blue oval logo -->
+            <ellipse cx="-50" cy="0" rx="22" ry="35" fill="none" stroke="#1E40AF" stroke-width="4"/>
+            <ellipse cx="-50" cy="-5" rx="14" ry="20" fill="none" stroke="#1E40AF" stroke-width="3"/>
+            <ellipse cx="-50" cy="-8" rx="8" ry="12" fill="none" stroke="#1E40AF" stroke-width="2"/>
             
             <!-- Company text -->
-            <text x="10" y="-15" text-anchor="middle" font-family="Arial,sans-serif" 
-                  font-size="20" font-weight="900" fill="#2563EB">WE</text>
-            <text x="10" y="0" text-anchor="middle" font-family="Arial,sans-serif" 
-                  font-size="20" font-weight="900" fill="#2563EB">WANT</text>
-            <text x="10" y="15" text-anchor="middle" font-family="Arial,sans-serif" 
-                  font-size="20" font-weight="900" fill="#2563EB">WASTE</text>
+            <text x="15" y="-18" text-anchor="middle" font-family="Arial Black,sans-serif" 
+                  font-size="24" font-weight="900" fill="#1E40AF">WE</text>
+            <text x="15" y="0" text-anchor="middle" font-family="Arial Black,sans-serif" 
+                  font-size="24" font-weight="900" fill="#1E40AF">WANT</text>
+            <text x="15" y="18" text-anchor="middle" font-family="Arial Black,sans-serif" 
+                  font-size="24" font-weight="900" fill="#1E40AF">WASTE</text>
           </g>
           
-          <!-- Bottom runners -->
-          <rect x="40" y="195" width="220" height="8" fill="#DAA520"/>
-          <rect x="50" y="200" width="15" height="8" rx="3" fill="#B8860B"/>
-          <rect x="235" y="200" width="15" height="8" rx="3" fill="#B8860B"/>
+          <!-- Bottom base with 3D effect -->
+          <path d="M35 200 L315 200 L330 215 L20 215 Z" fill="#B8860B" stroke="#996515" stroke-width="1"/>
+          
+          <!-- Bottom lifting points -->
+          <ellipse cx="60" cy="210" rx="8" ry="4" fill="#8B4513"/>
+          <ellipse cx="290" cy="210" rx="8" ry="4" fill="#8B4513"/>
         </g>
-        
-        <!-- Size badge -->
-        <rect x="300" y="20" width="80" height="35" rx="17" fill="#2563EB"/>
-        <text x="340" y="42" text-anchor="middle" font-family="Arial,sans-serif" 
-              font-size="16" font-weight="bold" fill="white">${size} Yards</text>
       </svg>
     `)}`;
   };
