@@ -33,16 +33,16 @@ export default function SkipSelection() {
 
   const getSkipImages = (size: number) => {
     const skipImageSets = {
-      4: [skipImage1, skipImage3, skipImage2],
-      6: [skipImage2, skipImage1, skipImage3], 
-      8: [skipImage3, skipImage2, skipImage1],
-      10: [skipImage1, skipImage3, skipImage2],
-      12: [skipImage2, skipImage1, skipImage3],
-      14: [skipImage3, skipImage2, skipImage1],
-      20: [skipImage4, skipImage2, skipImage3],
-      40: [skipImage4, skipImage2, skipImage3]
+      4: [skipImage1, skipImage3, skipImage4],
+      6: [skipImage3, skipImage1, skipImage4], 
+      8: [skipImage1, skipImage3, skipImage4],
+      10: [skipImage3, skipImage1, skipImage4],
+      12: [skipImage1, skipImage3, skipImage4],
+      14: [skipImage3, skipImage1, skipImage4],
+      20: [skipImage2, skipImage2, skipImage2], // Use IMG_5662.jpg for 20 yard
+      40: [skipImage2, skipImage2, skipImage2]  // Use IMG_5662.jpg for 40 yard
     };
-    return skipImageSets[size as keyof typeof skipImageSets] || [skipImage1, skipImage2, skipImage3];
+    return skipImageSets[size as keyof typeof skipImageSets] || [skipImage1, skipImage3, skipImage4];
   };
 
   if (isLoading) {
