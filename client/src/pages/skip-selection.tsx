@@ -21,14 +21,14 @@ export default function SkipSelection() {
   };
 
   const getSkipImage = (size: number) => {
-    // Different skip images based on size to match the original layout
+    // Professional skip container images matching the original design appearance
     const skipImages = {
-      4: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      6: "https://images.unsplash.com/photo-1571105568383-3bd17a39e4dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      8: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      10: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      12: "https://images.unsplash.com/photo-1571105568383-3bd17a39e4dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-      14: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+      4: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
+      6: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
+      8: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
+      10: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
+      12: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80",
+      14: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80"
     };
     return skipImages[size as keyof typeof skipImages] || skipImages[4];
   };
