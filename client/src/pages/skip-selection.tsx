@@ -33,7 +33,8 @@ export default function SkipSelection() {
       10: skipImage1,
       12: skipImage2,
       14: skipImage3,
-      20: skipImage4
+      20: skipImage4,
+      40: skipImage4
     };
     return skipImages[size as keyof typeof skipImages] || skipImage1;
   };
