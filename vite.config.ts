@@ -18,6 +18,7 @@ export default async () => {
     const { cartographer } = await import("@replit/vite-plugin-cartographer");
     plugins.push(cartographer());
   }
+  
 
   return defineConfig({
     plugins,
