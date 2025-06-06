@@ -117,6 +117,13 @@ export default function SkipSelection() {
           ))}
         </div>
 
+        {/* Disclaimer */}
+        <div className="mt-8 p-4 bg-gray-800/50 rounded-lg">
+          <p className="text-gray-400 text-sm text-center leading-relaxed">
+            Imagery and information shown throughout this website may not reflect the exact shape or size specification, colours may vary, options and/or accessories may be featured at additional cost.
+          </p>
+        </div>
+
         {/* Add bottom padding to prevent overlap with fixed bottom bar */}
         {selectedSkipId && <div className="h-20 md:h-0"></div>}
       </div>
