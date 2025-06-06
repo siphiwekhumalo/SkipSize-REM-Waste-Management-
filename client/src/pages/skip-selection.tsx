@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import type { SkipApiResponse } from "@/lib/api";
-import skipImage1 from "@assets/ChatGPT Image Jun 6, 2025, 11_41_03 AM.png";
-import skipImage2 from "@assets/image_1749203002605.png";
-import skipImage3 from "@assets/ChatGPT Image Jun 6, 2025, 11_33_05 AM.png";
-import skipImage4 from "@assets/image_1749201568179.png";
+import skipImage1 from "@assets/IMG_5661.jpg";
+import skipImage2 from "@assets/IMG_5662.jpg";
+import skipImage3 from "@assets/IMG_5663.jpg";
+import skipImage4 from "@assets/IMG_5664.jpg";
 import Skip360Viewer from "@/components/skip-360-viewer";
 
 export default function SkipSelection() {
