@@ -22,8 +22,67 @@ export default function SkipSelection() {
   };
 
   const getSkipImage = (size: number) => {
-    // Use the exact WeWantWaste skip image from attached assets
-    return skipImagePath;
+    // Create properly sized skip images with correct yard labels
+    return `data:image/svg+xml,${encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FFC300;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <rect width="400" height="300" fill="#f5f5f5"/>
+        
+        <!-- Skip Container -->
+        <g transform="translate(50,40)">
+          <!-- Main container body -->
+          <path d="M30 180 L30 90 L50 70 L250 70 L270 90 L270 180 L250 200 L50 200 Z" 
+                fill="url(#yellowGrad)" 
+                stroke="#E6B800" 
+                stroke-width="2"/>
+          
+          <!-- Top opening -->
+          <rect x="35" y="70" width="230" height="30" fill="#FFD700" stroke="#E6B800" stroke-width="1"/>
+          <rect x="50" y="75" width="15" height="20" fill="#DAA520"/>
+          <rect x="235" y="75" width="15" height="20" fill="#DAA520"/>
+          
+          <!-- Side warning stripes -->
+          <g stroke="#DC2626" stroke-width="4" fill="none">
+            <line x1="25" y1="100" x2="15" y2="120"/>
+            <line x1="25" y1="130" x2="15" y2="150"/>
+            <line x1="25" y1="160" x2="15" y2="180"/>
+            <line x1="275" y1="100" x2="285" y2="120"/>
+            <line x1="275" y1="130" x2="285" y2="150"/>
+            <line x1="275" y1="160" x2="285" y2="180"/>
+          </g>
+          
+          <!-- WeWantWaste Logo -->
+          <g transform="translate(150,135)">
+            <!-- Logo oval -->
+            <ellipse cx="-40" cy="0" rx="20" ry="30" fill="none" stroke="#2563EB" stroke-width="3"/>
+            <ellipse cx="-40" cy="0" rx="12" ry="18" fill="none" stroke="#2563EB" stroke-width="2"/>
+            
+            <!-- Company text -->
+            <text x="10" y="-15" text-anchor="middle" font-family="Arial,sans-serif" 
+                  font-size="20" font-weight="900" fill="#2563EB">WE</text>
+            <text x="10" y="0" text-anchor="middle" font-family="Arial,sans-serif" 
+                  font-size="20" font-weight="900" fill="#2563EB">WANT</text>
+            <text x="10" y="15" text-anchor="middle" font-family="Arial,sans-serif" 
+                  font-size="20" font-weight="900" fill="#2563EB">WASTE</text>
+          </g>
+          
+          <!-- Bottom runners -->
+          <rect x="40" y="195" width="220" height="8" fill="#DAA520"/>
+          <rect x="50" y="200" width="15" height="8" rx="3" fill="#B8860B"/>
+          <rect x="235" y="200" width="15" height="8" rx="3" fill="#B8860B"/>
+        </g>
+        
+        <!-- Size badge -->
+        <rect x="300" y="20" width="80" height="35" rx="17" fill="#2563EB"/>
+        <text x="340" y="42" text-anchor="middle" font-family="Arial,sans-serif" 
+              font-size="16" font-weight="bold" fill="white">${size} Yards</text>
+      </svg>
+    `)}`;
   };
 
   if (isLoading) {
@@ -189,11 +248,11 @@ function SkipCard({ skip, isSelected, onSelect, image }: {
       isSelected ? 'ring-2 ring-blue-500 bg-gray-750' : 'hover:bg-gray-750'
     }`}>
       {/* Skip Image */}
-      <div className="relative bg-gray-100 p-4">
+      <div className="relative">
         <img 
           src={image}
           alt={skip.name}
-          className="w-full h-48 object-contain"
+          className="w-full h-48 object-cover"
         />
         {/* Size Badge */}
         <div className="absolute top-3 right-3">
