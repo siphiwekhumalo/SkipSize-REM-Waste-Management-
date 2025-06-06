@@ -237,8 +237,7 @@ function SkipCard({ skip, isSelected, onSelect, images }: {
         ) : (
           <Button 
             onClick={onSelect}
-            variant="outline" 
-            className="w-full border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+            className="w-full bg-blue-400 hover:bg-blue-500 text-white font-semibold"
           >
             Select This Skip →
           </Button>
